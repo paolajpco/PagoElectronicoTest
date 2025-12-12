@@ -1,8 +1,8 @@
 package api.tests;
 
 import api.config.ApiConfig;
-import api.models.SampleRequest;
-import api.models.SampleResponse;
+import api.models.UserRequest;
+import api.models.UserResponse;
 import api.steps.ApiSteps;
 import io.restassured.response.Response;
 import org.junit.jupiter.api.Assertions;
@@ -14,7 +14,7 @@ public class ApiSampleTest extends ApiConfig {
 
     @Test
     public void testCreateSampleReturns201AndHasId() {
-        SampleRequest request = new SampleRequest("Paola Ortiz", "QA Engineer");
+        UserRequest request = new UserRequest("Paola Ortiz", "QA Engineer");
         Response response = api.createSample(request);
 
         // Validaciones básicas
@@ -27,8 +27,8 @@ public class ApiSampleTest extends ApiConfig {
 
     @Test
     public void testCreateSampleDeserialize() {
-        SampleRequest request = new SampleRequest("John Doe", "Tester");
-        SampleResponse respObj = api.createSampleAndDeserialize(request);
+        UserRequest request = new UserRequest("John Doe", "Tester");
+        UserResponse respObj = api.createSampleAndDeserialize(request);
 
         Assertions.assertNotNull(respObj.getId(), "El id no debe ser nulo");
         Assertions.assertEquals("John Doe", respObj.getName(), "El nombre devuelto debe coincidir");

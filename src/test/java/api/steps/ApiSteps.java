@@ -1,7 +1,7 @@
 package api.steps;
 
-import api.models.SampleRequest;
-import api.models.SampleResponse;
+import api.models.UserRequest;
+import api.models.UserResponse;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.restassured.response.Response;
 
@@ -17,7 +17,7 @@ public class ApiSteps {
      * Crea un recurso "sample" en reqres.in: POST /users
      * Retorna la respuesta Http completa.
      */
-    public Response createSample(SampleRequest request) {
+    public Response createSample(UserRequest request) {
         return given()
                 .contentType("application/json")
                 .body(request)
@@ -29,10 +29,10 @@ public class ApiSteps {
      * Crea y devuelve el objeto SampleResponse deserializado (útil para aserciones).
      * Lanza RuntimeException si la deserialización falla.
      */
-    public SampleResponse createSampleAndDeserialize(SampleRequest request) {
+    public UserResponse createSampleAndDeserialize(UserRequest request) {
         Response resp = createSample(request);
         try {
-            return mapper.readValue(resp.getBody().asString(), SampleResponse.class);
+            return mapper.readValue(resp.getBody().asString(), UserResponse.class);
         } catch (IOException e) {
             throw new RuntimeException("Error deserializando respuesta", e);
         }

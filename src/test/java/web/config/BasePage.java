@@ -4,6 +4,10 @@ import com.microsoft.playwright.Browser;
 import com.microsoft.playwright.BrowserContext;
 import com.microsoft.playwright.Page;
 
+import java.nio.file.Paths;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 public class BasePage {
     protected BrowserContext context;
     protected Page page;
@@ -13,6 +17,21 @@ public class BasePage {
         Browser browser = PlaywrightFactory.getBrowser();
         this.context = browser.newContext();
         this.page = context.newPage();
+    }
+    /**
+     * Captura screenshot con timestamp
+     * @param name nombre lógico del pantallazo
+     */
+    public void takeScreenshot(String name) {
+        String timestamp = LocalDateTime.now()
+                .format(DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss"));
+
+        page.screenshot(new Page.ScreenshotOptions()
+                .setFullPage(true)
+                .setPath(Paths.get(
+                        "src/test/resources/evidences/screenshots/"
+                                + name + "_" + timestamp + ".png"
+                )));
     }
 
     /**

@@ -11,18 +11,31 @@ public class WebSteps {
     private CartPage cart;
     private CheckoutPage checkout;
 
+    // ✅ Login exitoso
     public InventoryPage loginAs(String user, String password) {
         LoginPage login = new LoginPage();
-        inventory = login.login(user, password);
+        inventory = login
+                .open()
+                .loginSuccessfully(user, password);
         return inventory;
     }
 
+    // ❌ Login fallido (usuario bloqueado)
+    public LoginPage loginAsLockedUser(String user, String password) {
+        LoginPage login = new LoginPage();
+        return login
+                .open()
+                .loginExpectingError(user, password);
+    }
+
+    // 🛒 Agregar productos
     public void addTwoProductsToCart() {
         cart = inventory
                 .addTwoProducts()
                 .goToCart();
     }
 
+    // 💳 Flujo completo de compra
     public void completePurchaseFlow() {
         checkout = inventory
                 .addTwoProducts()
@@ -34,4 +47,5 @@ public class WebSteps {
                 .finishPurchase();
     }
 }
+
 

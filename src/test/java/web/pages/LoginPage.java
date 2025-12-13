@@ -15,11 +15,20 @@ public class LoginPage extends BasePage {
         return this;
     }
 
-    public LoginPage login(String username, String password) {
+    // ❌ Login fallido (permanece en LoginPage)
+    public LoginPage loginExpectingError(String username, String password) {
         page.fill(usernameInput, username);
         page.fill(passwordInput, password);
         page.click(loginButton);
         return this;
+    }
+
+    // ✅ Login exitoso (navega a InventoryPage)
+    public InventoryPage loginSuccessfully(String username, String password) {
+        page.fill(usernameInput, username);
+        page.fill(passwordInput, password);
+        page.click(loginButton);
+        return new InventoryPage();
     }
 
     public boolean isErrorVisible() {
@@ -34,4 +43,5 @@ public class LoginPage extends BasePage {
         return page;
     }
 }
+
 

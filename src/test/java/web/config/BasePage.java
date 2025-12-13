@@ -9,6 +9,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class BasePage {
+
     protected BrowserContext context;
     protected Page page;
 
@@ -18,8 +19,17 @@ public class BasePage {
         this.context = browser.newContext();
         this.page = context.newPage();
     }
+
+    /**
+     * 🔹 Exponer Page para validaciones desde tests o steps
+     */
+    public Page getPage() {
+        return page;
+    }
+
     /**
      * Captura screenshot con timestamp
+     *
      * @param name nombre lógico del pantallazo
      */
     public void takeScreenshot(String name) {

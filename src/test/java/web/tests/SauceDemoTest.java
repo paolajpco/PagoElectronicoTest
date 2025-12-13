@@ -1,6 +1,7 @@
 package web.tests;
 
 import org.junit.jupiter.api.*;
+import web.pages.InventoryPage;
 import web.pages.LoginPage;
 import web.steps.WebSteps;
 
@@ -19,15 +20,19 @@ public class SauceDemoTest {
     @Test
     @Order(1)
     void loginExitoso() {
-        LoginPage login = steps.loginAs("standard_user", "secret_sauce");
-        assertTrue(login.getPage().url().contains("inventory"));
-        login.closeContext();
+        InventoryPage inventory =
+                steps.loginAs("standard_user", "secret_sauce");
+
+        assertTrue(inventory.getPage().url().contains("inventory"));
+        inventory.closeContext();
     }
 
     @Test
     @Order(2)
     void loginFallidoUsuarioBloqueado() {
-        LoginPage login = steps.loginAs("locked_out_user", "secret_sauce");
+        LoginPage login =
+                steps.loginAsLockedUser("locked_out_user", "secret_sauce");
+
         assertTrue(login.isErrorVisible());
         login.closeContext();
     }
@@ -35,18 +40,23 @@ public class SauceDemoTest {
     @Test
     @Order(3)
     void agregarDosProductosAlCarrito() {
-        LoginPage login = steps.loginAs("standard_user", "secret_sauce");
-        steps.addTwoProductsToCart(); // 🔹 recomendado separar la acción
-        login.closeContext();
+        InventoryPage inventory =
+                steps.loginAs("standard_user", "secret_sauce");
+
+        steps.addTwoProductsToCart();
+        inventory.closeContext();
     }
 
     @Test
     @Order(4)
     void completarFlujoDeCompra() {
-        LoginPage login = steps.loginAs("standard_user", "secret_sauce");
+        InventoryPage inventory =
+                steps.loginAs("standard_user", "secret_sauce");
+
         steps.completePurchaseFlow();
-        login.closeContext();
+        inventory.closeContext();
     }
 }
+
 
 

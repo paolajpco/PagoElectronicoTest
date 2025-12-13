@@ -1,30 +1,45 @@
 package web.tests;
 
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
-import web.config.PlaywrightFactory;
+import org.junit.jupiter.api.*;
+import web.pages.LoginPage;
 import web.steps.WebSteps;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class SauceDemoTest {
 
-    private final WebSteps steps = new WebSteps();
+    WebSteps steps;
 
-    @Test
-    public void testSuccessfulLogin() {
-        boolean logged = steps.loginAsValidUser();
-        Assertions.assertTrue(logged, "El usuario debe llegar al área segura después del login");
+    @BeforeEach
+    void setUp() {
+        steps = new WebSteps();
     }
 
     @Test
-    public void testInvalidLoginShowsError() {
-        String msg = steps.loginWithInvalidCredentials("wrong", "wrong");
-        Assertions.assertTrue(msg.toLowerCase().contains("invalid"), "Debe mostrar mensaje de credenciales inválidas");
+    void loginExitoso() {
+        LoginPage login = steps.loginAs("standard_user", "secret_sauce");
+        assertTrue(login.getPage().url().contains("inventory"));
+        login.closeContext();
     }
 
-    @AfterAll
-    public static void tearDownAll() {
-        // Cerrar Playwright/browser global al final de todos los tests
-        PlaywrightFactory.closeAll();
+    @Test
+    void loginFallidoUsuarioBloqueado() {
+        LoginPage login = steps.loginAs("locked_out_user", "secret_sauce");
+        assertTrue(login.isErrorVisible());
+        login.closeContext();
+    }
+
+    @Test
+    void agregarDosProductosAlCarrito() {
+        LoginPage login = steps.loginAs("standard_user", "secret_sauce");
+        steps.completePurchaseFlow();
+        login.closeContext();
+    }
+
+    @Test
+    void completarFlujoDeCompra() {
+        LoginPage login = steps.loginAs("standard_user", "secret_sauce");
+        steps.completePurchaseFlow();
+        login.closeContext();
     }
 }

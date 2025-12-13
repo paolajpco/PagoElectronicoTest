@@ -9,9 +9,10 @@ public class CheckoutPage extends BasePage {
     private final String postalCode = "#postal-code";
     private final String continueButton = "#continue";
     private final String finishButton = "#finish";
-    private final String successMessage = ".complete-header";
 
-    public CheckoutPage fillInformation(String name, String lastNameValue, String zip) {
+    public CheckoutPage fillCheckoutInformation(
+            String name, String lastNameValue, String zip) {
+
         page.fill(firstName, name);
         page.fill(lastName, lastNameValue);
         page.fill(postalCode, zip);
@@ -19,12 +20,7 @@ public class CheckoutPage extends BasePage {
         return this;
     }
 
-    public CheckoutPage finishPurchase() {
+    public void finishPurchase() {
         page.click(finishButton);
-        return this;
-    }
-
-    public boolean isPurchaseCompleted() {
-        return page.isVisible(successMessage);
     }
 }

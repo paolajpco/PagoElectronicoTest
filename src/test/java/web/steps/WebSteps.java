@@ -1,6 +1,7 @@
 package web.steps;
 
 import web.pages.CartPage;
+import web.pages.CheckoutPage;
 import web.pages.InventoryPage;
 import web.pages.LoginPage;
 
@@ -8,29 +9,29 @@ public class WebSteps {
 
     private InventoryPage inventory;
     private CartPage cart;
+    private CheckoutPage checkout;
 
     public InventoryPage loginAs(String user, String password) {
         LoginPage login = new LoginPage();
-        return login.login(user, password); // devuelve InventoryPage
+        inventory = login.login(user, password);
+        return inventory;
     }
 
-
-    // ✅ Usa el método que YA existe
     public void addTwoProductsToCart() {
-        inventory
+        cart = inventory
                 .addTwoProducts()
                 .goToCart();
     }
 
     public void completePurchaseFlow() {
-        cart = inventory
+        checkout = inventory
                 .addTwoProducts()
-                .goToCart();
+                .goToCart()
+                .checkout();
 
-        cart.checkout();
-        cart.fillCheckoutInformation("Paola", "Ortiz", "050001");
-        cart.finishPurchase();
+        checkout
+                .fillCheckoutInformation("Paola", "Ortiz", "050001")
+                .finishPurchase();
     }
 }
-
 

@@ -1,20 +1,24 @@
 package web.config;
 
-import com.microsoft.playwright.*;
+import com.microsoft.playwright.Browser;
+import com.microsoft.playwright.BrowserType;
+import com.microsoft.playwright.Playwright;
 
 public class PlaywrightFactory {
 
     private static Playwright playwright;
     private static Browser browser;
 
-    private PlaywrightFactory() {}
+    private PlaywrightFactory() {
+    }
 
     public static Browser getBrowser() {
         if (browser == null) {
             playwright = Playwright.create();
             browser = playwright.chromium().launch(
                     new BrowserType.LaunchOptions()
-                            .setHeadless(false) // cambiar a true en CI
+                            .setChannel("chrome")   // ✅ USA CHROME DEL SISTEMA
+                            .setHeadless(false)     // true en CI
             );
         }
         return browser;
@@ -29,3 +33,4 @@ public class PlaywrightFactory {
         }
     }
 }
+

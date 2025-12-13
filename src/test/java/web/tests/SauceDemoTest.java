@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 import web.config.PlaywrightFactory;
 import web.steps.WebSteps;
 
-public class WebSampleTest {
+public class SauceDemoTest {
 
     private final WebSteps steps = new WebSteps();
 

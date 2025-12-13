@@ -10,6 +10,8 @@ public class ApiConfig {
     @BeforeAll
     public static void setup() {
         RestAssured.baseURI = "https://reqres.in/api";
+
+        // Activar logging de request y response
         RestAssured.filters(new RequestLoggingFilter(), new ResponseLoggingFilter());
     }
 }

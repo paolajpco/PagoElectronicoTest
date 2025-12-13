@@ -1,6 +1,7 @@
 package web.steps;
 
-import web.pages.*;
+import web.pages.InventoryPage;
+import web.pages.LoginPage;
 
 public class WebSteps {
 
@@ -8,6 +9,13 @@ public class WebSteps {
         return new LoginPage()
                 .open()
                 .login(user, password);
+    }
+
+    // ✅ NUEVO MÉTODO
+    public void addTwoProductsToCart() {
+        inventory.addProductToCart("Sauce Labs Backpack");
+        inventory.addProductToCart("Sauce Labs Bike Light");
+        inventory.goToCart();
     }
 
     public void completePurchaseFlow() {

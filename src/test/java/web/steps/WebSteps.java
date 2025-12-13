@@ -1,29 +1,36 @@
 package web.steps;
 
+import web.pages.CartPage;
 import web.pages.InventoryPage;
 import web.pages.LoginPage;
 
 public class WebSteps {
 
-    public LoginPage loginAs(String user, String password) {
-        return new LoginPage()
-                .open()
-                .login(user, password);
+    private InventoryPage inventory;
+    private CartPage cart;
+
+    public InventoryPage loginAs(String user, String password) {
+        LoginPage login = new LoginPage();
+        return login.login(user, password); // devuelve InventoryPage
     }
 
-    // ✅ NUEVO MÉTODO
+
+    // ✅ Usa el método que YA existe
     public void addTwoProductsToCart() {
-        inventory.addProductToCart("Sauce Labs Backpack");
-        inventory.addProductToCart("Sauce Labs Bike Light");
-        inventory.goToCart();
+        inventory
+                .addTwoProducts()
+                .goToCart();
     }
 
     public void completePurchaseFlow() {
-        InventoryPage inventory = new InventoryPage();
-        inventory.addTwoProducts()
-                .goToCart()
-                .checkout()
-                .fillInformation("Paola", "Ortiz", "110111")
-                .finishPurchase();
+        cart = inventory
+                .addTwoProducts()
+                .goToCart();
+
+        cart.checkout();
+        cart.fillCheckoutInformation("Paola", "Ortiz", "050001");
+        cart.finishPurchase();
     }
 }
+
+

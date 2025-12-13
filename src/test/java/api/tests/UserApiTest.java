@@ -15,6 +15,7 @@ public class UserApiTest extends ApiConfig {
 
     private final UserApiSteps userApi = new UserApiSteps();
 
+    // GET /users?page=2
     @Test
     public void testGetUsersPage2() {
         Response resp = userApi.getUsersPage(2);
@@ -29,6 +30,7 @@ public class UserApiTest extends ApiConfig {
         assertThat(resp.jsonPath().getList("data"), is(not(empty())));
     }
 
+    // POST /users
     @Test
     public void testCreateUser() {
         UserRequest request = UserRequest.builder()
@@ -38,11 +40,14 @@ public class UserApiTest extends ApiConfig {
 
         UserResponse resp = userApi.createUser(request);
 
+        // Validaciones con Hamcrest
         assertThat(resp.getId(), notNullValue());
         assertThat(resp.getName(), equalTo("Paola Ortiz"));
         assertThat(resp.getJob(), equalTo("QA Engineer"));
+        assertThat(resp.getCreatedAt(), notNullValue());
     }
 
+    // PUT /users/{id}
     @Test
     public void testUpdateUser() {
         UserRequest request = UserRequest.builder()
@@ -52,15 +57,18 @@ public class UserApiTest extends ApiConfig {
 
         UserResponse resp = userApi.updateUser("2", request);
 
+        // Validaciones
         assertThat(resp.getName(), equalTo("Paola Updated"));
         assertThat(resp.getJob(), equalTo("Automation QA"));
         assertThat(resp.getUpdatedAt(), notNullValue());
     }
 
+    // DELETE /users/{id}
     @Test
     public void testDeleteUser() {
         userApi.deleteUser("2");
-        // Si llega aquí sin excepción, el DELETE fue exitoso
+
+        // Si no lanza excepción, se considera exitoso
         Assertions.assertTrue(true);
     }
 }

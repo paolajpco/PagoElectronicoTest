@@ -14,7 +14,6 @@ Este repositorio contiene la solución a la **Prueba Técnica para Automatizador
 2. **Aplicar buenas prácticas**, incluyendo:
 
    * Page Object Model (POM)
-   * Screenplay (opcional)
    * Separación por capas
 3. **Automatizar pruebas API con RestAssured.**
 4. **Automatizar pruebas Web con Playwright.**

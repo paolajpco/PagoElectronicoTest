@@ -1,10 +1,10 @@
 ---
 
-# 🧪 PRUEBA TÉCNICA – AUTOMATIZADOR QA
+# 🧪PRUEBA TÉCNICA – AUTOMATIZADOR QA
 
 ## Automatización API (RestAssured) & Web (Playwright)
 
-Este repositorio contiene la solución a la **Prueba Técnica para Automatizador QA**, donde se evalúan las capacidades para construir automatizaciones mantenibles utilizando **RestAssured** para pruebas API y **Playwright** para pruebas Web.
+Este repositorio contiene la solución a la **Prueba Técnica para Automatizador QA**
 
 ---
 
@@ -58,55 +58,28 @@ Este repositorio contiene la solución a la **Prueba Técnica para Automatizador
 
 * **Playwright**
 * **Node.js**
-* **Java (Playwright for Java)** o **TypeScript** según setup
+* **Java (Playwright for Java)** 
 
 ---
 
-## 🚀 Ejecución de Pruebas
+## 🚀 Ejecución del Proyecto
 
-### ✔️ 1. Pruebas API (RestAssured)
+El proyecto está configurado para ejecutarse con un solo comando utilizando Maven.
 
-Ir al proyecto:
+### 🔧 Requisitos previos
+- Java 17 o superior
+- Maven 3.8+
+- Node.js (requerido por Playwright)
 
-```bash
-cd api-tests
-```
+> Playwright se instala automáticamente al ejecutar las pruebas.
 
-Ejecutar:
+### ▶️ Ejecutar todas las pruebas (API + Web)
+
+Desde la raíz del proyecto, ejecutar:
 
 ```bash
 mvn clean test
-```
 
----
-
-### ✔️ 2. Pruebas Web (Playwright)
-
-Ir al proyecto:
-
-```bash
-cd web-tests
-```
-
-Instalar dependencias:
-
-```bash
-npm install
-```
-
-Instalar navegadores:
-
-```bash
-npx playwright install
-```
-
-Ejecutar las pruebas:
-
-```bash
-npx playwright test
-```
-
----
 
 ## 🧱 Buenas Prácticas Implementadas
 
@@ -131,27 +104,21 @@ npx playwright test
 ## 🧩 Casos de Prueba Implementados
 
 ### 🔹 API con RestAssured
+Api publica: API: https://reqres.in/
 
-* Validar que el endpoint responde 200 OK.
-* Crear un recurso (POST) y validar campos.
-* Consultar recurso (GET).
-* Validación de esquema JSON.
+* Validar respuesta metodo GET
+* Crear un recurso (POST) y respuesta.
+* Validar respuesta metodo (PUT).
+* Validación de DELETE.
 
 ### 🔹 Web con Playwright
-
-* Login exitoso.
-* Navegación a sección interna.
-* Interacción con elementos (inputs, botones).
-* Validación de mensajes visibles.
-
+Pagina Web: https://www.saucedemo.com/
+Pruebas:
+1.Login exitoso.
+2.Login fallido (usuario bloqueado).
+3.Agregar dos productos al carrito.
+4. Completar flujo de compra.
 ---
 
-## 📄 Notas Finales
 
-Este proyecto está construido para demostrar experiencia real en:
-
-✔️ diseño de automatizaciones mantenibles
-✔️ separación de responsabilidades
-✔️ buenas prácticas de arquitectura de pruebas
-✔️ trabajo con herramientas modernas de automatización API y Web
 
